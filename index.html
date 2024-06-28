@@ -3,26 +3,47 @@
 </iframe>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const iframe = document.getElementById('your-iframe-id');
-        const url = 'https://nornickel.localdev.eduson.tv/ru/courses/7441';
+    document.querySelectorAll('iframe').forEach(iframe => {
+        iframe.addEventListener('load', function() {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-        fetch(url, {
-            headers: {
-                'Authorization': 'Bearer u79793@eduson.tv', // Указывайте ваш JWT токен
-            }
-        })
-            .then(response => response.text())
-            .then(html => {
-                if (iframe && iframe.contentWindow) {
-                    iframe.contentWindow.document.open();
-                    iframe.contentWindow.document.write(html);
-                    iframe.contentWindow.document.close();
-                } else {
-                    console.error('Iframe is not available');
+            iframeDoc.querySelectorAll('a').forEach(link => {
+                link.href += '?auth-token=u79793@eduson.tv';
+            });
+
+            iframeDoc.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const url = new URL(e.target.href);
+                    url.searchParams.set('auth-token', "u79793@eduson.tv");
+                    iframe.src = url.href;
                 }
-            })
-            .catch(error => console.error('Error loading the page: ', error));
+            });
+        });
     });
-
 </script>
+
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        const iframe = document.getElementById('your-iframe-id');-->
+<!--        const url = 'https://nornickel.localdev.eduson.tv/ru/courses/7441';-->
+
+<!--        fetch(url, {-->
+<!--            headers: {-->
+<!--                'Authorization': 'Bearer u79793@eduson.tv', // Указывайте ваш JWT токен-->
+<!--            }-->
+<!--        })-->
+<!--            .then(response => response.text())-->
+<!--            .then(html => {-->
+<!--                if (iframe && iframe.contentWindow) {-->
+<!--                    iframe.contentWindow.document.open();-->
+<!--                    iframe.contentWindow.document.write(html);-->
+<!--                    iframe.contentWindow.document.close();-->
+<!--                } else {-->
+<!--                    console.error('Iframe is not available');-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => console.error('Error loading the page: ', error));-->
+<!--    });-->
+
+<!--</script>-->
