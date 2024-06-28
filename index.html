@@ -13,47 +13,5 @@
             type: "AUTH_TOKEN",
             token: "u79793@eduson.tv"
         }, "*"); // Внимание: установка "*" в targetOrigin может быть небезопасной, лучше указать точный домен
-
-            // const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            //
-            // iframeDoc.querySelectorAll('a').forEach(link => {
-            //     link.href += '?auth-token=u79793@eduson.tv';
-            // });
-            //
-            // iframeDoc.addEventListener('click', function(e) {
-            //     if (e.target.tagName === 'A') {
-            //         e.preventDefault();
-            //         const url = new URL(e.target.href);
-            //         url.searchParams.set('auth-token', "u79793@eduson.tv");
-            //         iframe.src = url.href;
-            //     }
-            // });
     });
 </script>
-
-
-
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function() {-->
-<!--        const iframe = document.getElementById('your-iframe-id');-->
-<!--        const url = 'https://nornickel.localdev.eduson.tv/ru/courses/7441';-->
-
-<!--        fetch(url, {-->
-<!--            headers: {-->
-<!--                'Authorization': 'Bearer u79793@eduson.tv', // Указывайте ваш JWT токен-->
-<!--            }-->
-<!--        })-->
-<!--            .then(response => response.text())-->
-<!--            .then(html => {-->
-<!--                if (iframe && iframe.contentWindow) {-->
-<!--                    iframe.contentWindow.document.open();-->
-<!--                    iframe.contentWindow.document.write(html);-->
-<!--                    iframe.contentWindow.document.close();-->
-<!--                } else {-->
-<!--                    console.error('Iframe is not available');-->
-<!--                }-->
-<!--            })-->
-<!--            .catch(error => console.error('Error loading the page: ', error));-->
-<!--    });-->
-
-<!--</script>-->
