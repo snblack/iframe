@@ -1,22 +1,17 @@
-<iframe width="1280" height="1000">
+<iframe src="https://nornickel.localdev.eduson.tv/ru/courses/7441" width="1280" height="1000">
     Ваш браузер не поддерживает iframe.
 </iframe>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const iframe = document.getElementById('iframeId');
-        const url = 'https://nornickel.localdev.eduson.tv/ru/courses/7441';
-
-        fetch(url, {
+    async function getSrc() {
+        const res = await fetch("https://nornickel.localdev.eduson.tv/ru/courses/7441", {
+            method: 'GET',
             headers: {
-                'Authorization': 'Bearer u79793@eduson.tv' // Используйте ваш токен
+                "auth-token": "u79793@eduson.tv"
             }
-        })
-            .then(response => response.text()) // получаем текст ответа
-            .then(html => {
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(html); // записываем HTML в документ iframe
-                iframe.contentWindow.document.close();
-            })
-            .catch(error => console.error('Error loading the page: ', error));
-    });
+        });
+        const blob = await res.blob();
+        const urlObject = URL.createObjectURL(blob);
+        document.querySelector('iframe').setAttribute("src", urlObject)
+    }
+    getSrc();
 </script>
