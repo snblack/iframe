@@ -1,25 +1,28 @@
-<iframe src="https://nornickel.localdev.eduson.tv/ru/courses/7441" width="1280" height="1000">
+<iframe id="your-iframe-id" width="1280" height="1000">
     Ваш браузер не поддерживает iframe.
 </iframe>
+
 <script>
-    async function getSrc() {
-        try {
-            const res = await fetch("https://nornickel.localdev.eduson.tv/ru/courses/7441", {
-                method: 'GET',
-                headers: {
-                    "Authorization": "Bearer u79793@eduson.tv"  // Предпочтительно использовать стандартный заголовок Authorization
-                }
-            });
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('your-iframe-id');
+        const url = 'https://nornickel.localdev.eduson.tv/ru/courses/7441';
+
+        fetch(url, {
+            headers: {
+                'Authorization': 'Bearer u79793@eduson.tv', // Указывайте ваш JWT токен
             }
-            const blob = await res.blob();
-            const urlObject = URL.createObjectURL(blob);
-            document.querySelector('iframe').src = urlObject;
-        } catch (e) {
-            console.error('Error loading the page: ', e);
-            // Обработка ошибок, например, можно показать сообщение пользователю
-        }
-    }
-    getSrc();
+        })
+            .then(response => response.text())
+            .then(html => {
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.document.open();
+                    iframe.contentWindow.document.write(html);
+                    iframe.contentWindow.document.close();
+                } else {
+                    console.error('Iframe is not available');
+                }
+            })
+            .catch(error => console.error('Error loading the page: ', error));
+    });
+
 </script>
