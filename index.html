@@ -3,25 +3,27 @@
 </iframe>
 
 <script>
-    document.querySelectorAll('iframe').forEach(iframe => {
-        iframe.addEventListener('load', function() {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    iframe = document.getElementById('your-iframe-id')
 
-            iframeDoc.querySelectorAll('a').forEach(link => {
-                link.href += '?auth-token=u79793@eduson.tv';
-            });
+    iframe.addEventListener('load', function() {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-            iframeDoc.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    e.preventDefault();
-                    const url = new URL(e.target.href);
-                    url.searchParams.set('auth-token', "u79793@eduson.tv");
-                    iframe.src = url.href;
-                }
-            });
+        iframeDoc.querySelectorAll('a').forEach(link => {
+            link.href += '?auth-token=u79793@eduson.tv';
+        });
+
+        iframeDoc.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const url = new URL(e.target.href);
+                url.searchParams.set('auth-token', "u79793@eduson.tv");
+                iframe.src = url.href;
+            }
         });
     });
 </script>
+
+
 
 <!--<script>-->
 <!--    document.addEventListener('DOMContentLoaded', function() {-->
