@@ -6,20 +6,28 @@
     iframe = document.getElementById('your-iframe-id')
 
     iframe.addEventListener('load', function() {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        const authToken = "your_auth_token_here";
 
-        iframeDoc.querySelectorAll('a').forEach(link => {
-            link.href += '?auth-token=u79793@eduson.tv';
-        });
+        // Отправка сообщения с токеном в iframe
+        iframe.postMessage({
+            type: "AUTH_TOKEN",
+            token: "u79793@eduson.tv"
+        }, "*"); // Внимание: установка "*" в targetOrigin может быть небезопасной, лучше указать точный домен
 
-        iframeDoc.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                const url = new URL(e.target.href);
-                url.searchParams.set('auth-token', "u79793@eduson.tv");
-                iframe.src = url.href;
-            }
-        });
+            // const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            //
+            // iframeDoc.querySelectorAll('a').forEach(link => {
+            //     link.href += '?auth-token=u79793@eduson.tv';
+            // });
+            //
+            // iframeDoc.addEventListener('click', function(e) {
+            //     if (e.target.tagName === 'A') {
+            //         e.preventDefault();
+            //         const url = new URL(e.target.href);
+            //         url.searchParams.set('auth-token', "u79793@eduson.tv");
+            //         iframe.src = url.href;
+            //     }
+            // });
     });
 </script>
 
