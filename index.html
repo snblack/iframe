@@ -9,7 +9,7 @@
         const authToken = "your_auth_token_here";
 
         // Отправка сообщения с токеном в iframe
-        iframe.postMessage({
+        iframe.contentWindow.postMessage({
             type: "AUTH_TOKEN",
             token: "u79793@eduson.tv"
         }, "*"); // Внимание: установка "*" в targetOrigin может быть небезопасной, лучше указать точный домен
