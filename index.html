@@ -3,15 +3,23 @@
 </iframe>
 <script>
     async function getSrc() {
-        const res = await fetch("https://nornickel.localdev.eduson.tv/ru/courses/7441", {
-            method: 'GET',
-            headers: {
-                "auth-token": "u79793@eduson.tv"
+        try {
+            const res = await fetch("https://nornickel.localdev.eduson.tv/ru/courses/7441", {
+                method: 'GET',
+                headers: {
+                    "Authorization": "Bearer u79793@eduson.tv"  // Предпочтительно использовать стандартный заголовок Authorization
+                }
+            });
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
             }
-        });
-        const blob = await res.blob();
-        const urlObject = URL.createObjectURL(blob);
-        document.querySelector('iframe').setAttribute("src", urlObject)
+            const blob = await res.blob();
+            const urlObject = URL.createObjectURL(blob);
+            document.querySelector('iframe').src = urlObject;
+        } catch (e) {
+            console.error('Error loading the page: ', e);
+            // Обработка ошибок, например, можно показать сообщение пользователю
+        }
     }
     getSrc();
 </script>
